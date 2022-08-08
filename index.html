@@ -1,0 +1,57 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!--<script src="https://unpkg.com/qrious@4.0.2/dist/qrious.js"></script>-->
+  <script src="./qr_library.js"></script>
+  <title>QR_Generator</title>
+   <style>
+            body {
+                background: #333;
+            }
+            #main {
+                margin-top: 100px;
+                text-align: center;
+            }
+            #canvas {
+	      background-color: white;
+                height: 200px;
+                width: 200px;
+		align-items: center;
+            }
+        </style>
+</head>
+<body>
+<img alt="Código QR" id="canvas">
+<!--<canvas id="canvas" width="800" height="600"></canvas>-->
+<script>
+  window.onload = function() {
+	 var input_url = window.location.href;
+         var url = new URL(input_url);
+      if(url.searchParams.get("QR_String") != null){
+		new QRious({
+		    element: document.getElementById("canvas"),
+			value: url.searchParams.get("QR_String"), // La URL o el texto
+			size: 200,
+			backgroundAlpha: 0, // 0 para fondo transparente
+			foreground: "#000000", // Color del QR
+			level: "H", // Puede ser L,M,Q y H (L es el de menor nivel, H el mayor)
+		});
+	}
+      else{
+	new QRious({
+	    element: document.getElementById("canvas"),
+			value: "hello world",// La URL o el texto
+			size: 200,
+			backgroundAlpha: 0, // 0 para fondo transparente
+			foreground: "#000000", // Color del QR
+			level: "H", // Puede ser L,M,Q y H (L es el de menor nivel, H el mayor)
+		});
+	}
+	var url_img = document.getElementById("canvas").src;
+      window.location.replace(url_img);
+
+    }
+
+</script>
+</body>
+</html>
